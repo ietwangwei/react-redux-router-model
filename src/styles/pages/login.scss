@@ -1,0 +1,11 @@
+.login {
+  position: relative;
+  box-sizing: border-box;
+  height: 100vh;
+  background-size: auto 100vh;
+  background-image: url('../assets/images/reg-bg.jpg');
+
+  .ant-form {
+    padding: 24px 32px;
+  }
+}
