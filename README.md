@@ -1,68 +1,71 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## 说明
+1. nodeJS  --8.11.4
+# 使用react-create-app 搭建react开发环境
+# 使用到的相关技术有 [react-router-dom, redux, react-redux, redux-actions, react-thunk]
+## 以下是搭建步骤
+# 项目初始化
+1. create-react-app 初始化项目
+2. npm run eject // error [Remove untracked files, stash or commit any changes, and try again]
+3. 出现以上问题，解决方案是[cd my-react-app > git init > git add . > git commit -m ‘init’ > npm run eject] 因为脚手架添加.gitgnore文件，但是却没有本地仓库
+4. npm run start // success  项目运行成功
+# 项目模块化
+1. 基本框架
+   src
+   --actions [驱动模块]
+   --reducer [处理模块]
+   --components [组件模块]
+   --pages [页面模块]
+   --styles [样式模块]
+   --routes.js [路由文件]
+   --store.js
+2. 添加文件
+    --pages
+      --login.js
+      --home.js
+3. npm install react-router-dom [引入react路由插件]
+4. 配置路由[router.js]
+5. 修改index.js添加路由器
+6. npm run start // success [路由能正常使用]
+# 引入样式表 我是用的是sass [在config/paths.js下面添加scss到moduleFileExtensions]
+# 引入redux
+1. npm install redux --save
+2. npm install react-redux --save
+3. 创建store.js
+# 最原始的使用redux的方法可以借鉴[src/store.old.js, src/componnents/Counter.old.js]
+# 使用装饰器@来使用redux
+1. cnpm install babel-plugin-transform-decorators-legacy --save // 引入装饰器插件
+2. 修改package.json文件的babel
+   <core>
+    "babel": {
+      "presets": [
+        "react-app"
+      ],
+      "plugins": [
+        [
+          "@babel/plugin-proposal-decorators",
+          {
+            "legacy": true
+          }
+        ]
+      ]
+    },
+   </core>
+3. 可以在home.js里面使用@connect来使用redux, npm run start // error: [Parsing error: Using the export keyword between a decorator and a class is not allowed. Please use `export @dec class` instead]这个报错是eslint报错, 需要在package.json的eslintConfig修改配置
+4. 修改package.json的eslintConfig
+  <core>
+    "eslintConfig": {
+      "extends": "react-app",
+      "parserOptions": {
+        "ecmaFeatures": {
+          "legacyDecorators": true
+        }
+      }
+    },
+  </core>
+5. npm run start // success
+# 模块化使用redux
+1. cnpm install redux-actions --save
+2. cnpm install redux-thunk --save
+3. 创建src/actions, src/reducers文件夹
+4. 在src/utils下面创建connect.js装饰器用来统一管理redux
+5. 在src/pages/login下面可以查看这种方式的redux
