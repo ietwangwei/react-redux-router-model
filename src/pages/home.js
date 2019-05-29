@@ -1,26 +1,18 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import connect from '../utils/connect'
+import Header from '../components/Header'
+import TodoList from '../components/TodoList'
 
 
-@connect(state => {
-  return {
-    count: state.counter.count
-  }
-}, diapatch => {
-  return {
-    increment: () => {
-      diapatch({
-        type: 'INCREMENT'
-      })
-    }
-  }
-})
+@connect
 export default class Home extends React.Component {
   render() {
     return (
       <div className='home'>
-        This is Home
-        <span onClick={this.props.increment}>{this.props.count}</span>
+        <Header></Header>
+        <div className="page-wrap">
+          <TodoList></TodoList>
+        </div>
       </div>
     )
   }

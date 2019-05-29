@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 24px;
+  background-color: #000;
+  color: #FFF;
+
+  .header-title {
+    font-size: 24px;
+  }
+
+  .header-menu {
+    margin-left: 12px;
+    font-size: 12px;
+  }
+}

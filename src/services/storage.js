@@ -1,6 +1,6 @@
 export default class Storage {
   static setItem (dataName, data) {
-    localStorage.setItem(dataName, data)
+    localStorage.setItem(dataName, JSON.stringify(data))
   }
   static getItem (dataName) {
     const result = localStorage.getItem(dataName)
